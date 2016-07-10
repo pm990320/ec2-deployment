@@ -1,7 +1,4 @@
-if [ -z "$MACHINE_CREATED" ]; then
-    echo "Machine already created successfully."
-    exit 0
-fi
+cd /home/ubuntu/deploymentscripts
 
 sudo apt-get update
 sudo apt-get -y upgrade
@@ -16,11 +13,6 @@ echo 'Nginx installed.'
 sudo service nginx start
 sudo update-rc.d nginx defaults
 echo 'Nginx is running'
-
-
-# fetch configuration files
-# curl <something>
-# ====
 
 # add to available sites
 sudo cp nodemusic.net /etc/nginx/sites-available/nodemusic.net
@@ -46,12 +38,5 @@ echo 'Nginx service reloaded.'
 
 
 #### DOCKER ####
-sudo wget -qO- https://get.docker.com/ | sh
-echo 'Docker installed.'
-
-curl -L https://github.com/docker/compose/releases/download/1.8.0-rc2/docker-compose-Linux-x86_64 > /home/ubuntu/docker-compose
-chmod +x /home/ubuntu/docker-compose
-echo 'Compose installed.'
-
-echo "Instance successfully created."
-export MACHINE_CREATED=True
+# sudo wget -qO- https://get.docker.com/ | sh
+# echo 'Docker installed.'
