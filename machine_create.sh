@@ -1,11 +1,12 @@
 cd /home/ubuntu/deploymentscripts
+echo "Moving to deploymentscripts directory"
 
 sudo apt-get update
 sudo apt-get -y upgrade
 
 #### NGINX ####
 echo 'Installing nginx...'
-sudo apt-get install nginx
+sudo apt-get install -y nginx
 echo 'Nginx installed.'
 
 
