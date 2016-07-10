@@ -29,15 +29,6 @@ echo 'Sites enabled.'
 sudo rm /etc/nginx/sites-enabled/default
 echo 'Default sites disabled.'
 
-
 sudo service nginx configtest
-# test if output is not 'OK'
-echo 'New configuration test passed.'
-
 sudo service nginx reload
-echo 'Nginx service reloaded.'
 
-
-#### DOCKER ####
-# sudo wget -qO- https://get.docker.com/ | sh
-# echo 'Docker installed.'
