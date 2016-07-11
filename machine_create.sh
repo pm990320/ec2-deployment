@@ -1,33 +1,21 @@
-cd /home/ubuntu/deploymentscripts
 echo "Moving to deploymentscripts directory"
+cd /home/ubuntu/deploymentscripts
 
+echo "Running apt-get update and apt-get upgrade."
 sudo apt-get update
 sudo apt-get -y upgrade
 
-#### NGINX ####
-echo 'Installing nginx...'
-sudo apt-get install -y nginx
-echo 'Nginx installed.'
+#### DOCKER ####
+echo "Installing docker..."
+wget -qO- https://get.docker.com/ | sh
+echo "Docker installed."
 
+echo "Restarting docker service..."
+sudo service docker restart
+echo "Restarted docker."
 
-# make sure nginx is running
-sudo service nginx start
-sudo update-rc.d nginx defaults
-echo 'Nginx is running'
+echo "Running nginx-proxy container..."
+docker run -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
+echo "nginx-proxy container running."
 
-# add to available sites
-sudo cp nodemusic.net /etc/nginx/sites-available/nodemusic.net
-sudo cp simplysortedsoftware.com /etc/nginx/sites-available/simplysortedsoftware.com
-echo 'Added sites'
-
-# enable these sites
-sudo ln -s /etc/nginx/sites-available/nodemusic.net /etc/nginx/sites-enabled/
-sudo ln -s /etc/nginx/sites-available/simplysortedsoftware.com /etc/nginx/sites-enabled/
-echo 'Sites enabled.'
-
-# disable default
-sudo rm /etc/nginx/sites-enabled/default
-echo 'Default sites disabled.'
-
-sudo service nginx configtest
-sudo service nginx reload
+echo "Ready for deployments for services."
