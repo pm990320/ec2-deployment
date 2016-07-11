@@ -10,10 +10,17 @@ echo "Installing docker..."
 wget -qO- https://get.docker.com/ | sh
 echo "Docker installed."
 
+
+echo "Adding user to docker group..."
+sudo usermod -aG docker $(whoami)
+
+
 echo "Restarting docker service..."
 sudo service docker restart
 echo "Restarted docker."
 
+
+#### NGINX PROXY ####
 echo "Running nginx-proxy container..."
 docker run -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
 echo "nginx-proxy container running."
