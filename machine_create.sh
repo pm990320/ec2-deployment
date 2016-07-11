@@ -14,6 +14,8 @@ echo "Docker installed."
 echo "Adding user to docker group..."
 sudo usermod -aG docker ubuntu
 
+echo "Starting docker service..."
+sudo service docker start
 
 #### NGINX PROXY ####
 echo "Running nginx-proxy container..."
