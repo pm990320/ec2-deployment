@@ -12,12 +12,7 @@ echo "Docker installed."
 
 
 echo "Adding user to docker group..."
-sudo usermod -aG docker $(whoami)
-
-
-echo "Restarting docker service..."
-sudo service docker restart
-echo "Restarted docker."
+sudo usermod -aG docker ubuntu
 
 
 #### NGINX PROXY ####
