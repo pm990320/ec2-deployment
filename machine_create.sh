@@ -18,6 +18,10 @@ echo "Starting docker service..."
 sudo service docker start
 
 #### NGINX PROXY ####
+echo "Stopping any previously running container instance..."
+docker rm $(docker stop $(docker ps -a -q --filter ancestor=jwilder/nginx-proxy --format="{{.ID}}"))
+echo "Previously running containers stopped."
+
 echo "Running nginx-proxy container..."
 docker run -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
 echo "nginx-proxy container running."
