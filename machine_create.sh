@@ -27,3 +27,7 @@ docker run -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx
 echo "nginx-proxy container running."
 
 echo "Ready for deployments for services."
+
+#### AWS CLI ####
+sudo apt-get -y install python-pip
+sudo pip install awscli
