@@ -49,3 +49,8 @@ docker run -d -p 80:80 -p 443:443 -v ./certs:/etc/nginx/certs -v /var/run/docker
 echo "nginx-proxy container running."
 
 echo "Ready for deployments for services."
+
+#### AWS CLI ####
+sudo apt-get -y install python-pip
+sudo pip install awscli
+echo "Installed awscli"
