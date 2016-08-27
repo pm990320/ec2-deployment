@@ -1,6 +1,9 @@
 echo "Moving to deploymentscripts directory"
 cd /home/ubuntu/deploymentscripts
 
+echo "APT::Get::Assume-Yes "true";" > /etc/apt/apt.conf.d/yes
+echo "APT::Get::force-yes "true";" > /etc/apt/apt.conf.d/yes
+
 echo "Running apt-get update and apt-get upgrade."
 sudo apt-get update
 sudo apt-get -y upgrade
