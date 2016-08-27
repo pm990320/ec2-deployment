@@ -20,11 +20,12 @@ sudo service docker start
 
 #### CERTBOT - LETS ENCRYPT - SSL CERTIFICATES ####
 echo "Installing letsencrypt..."
-sudo apt-get install letsencrypt
+wget https://dl.eff.org/certbot-auto
+chmod a+x certbot-auto
 echo "letsencrypt installed."
 
 echo "Generating certificates..."
-letsencrypt certonly --webroot -w /home/ubuntu/deploymentscripts/certs -d www.simplysortedsoftware.com -d www.nodemusic.net -d nodemusic.net
+./certbot-auto certonly --webroot -w /home/ubuntu/deploymentscripts/certs -d www.simplysortedsoftware.com -d www.nodemusic.net -d nodemusic.net
 echo "Certificates generated."
 
 
@@ -32,7 +33,7 @@ echo "Setting up cron job to renew certificates..."
 #write out current crontab
 crontab -l > mycron
 #echo new cron into cron file
-echo "27 * * * * letsencrypt renew" >> mycron
+echo "27 * * * * /home/ubuntu/deploymentscripts/certbot-auto renew" >> mycron
 #install new cron file
 crontab mycron
 rm mycron
