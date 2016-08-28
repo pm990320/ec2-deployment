@@ -1,8 +1,6 @@
 echo "Moving to deploymentscripts directory"
+mkdir -p /home/ubuntu/deploymentscripts
 cd /home/ubuntu/deploymentscripts
-
-echo "APT::Get::Assume-Yes "true";" > /etc/apt/apt.conf.d/yes
-echo "APT::Get::force-yes "true";" > /etc/apt/apt.conf.d/yes
 
 echo "Running apt-get update and apt-get upgrade."
 sudo apt-get update
@@ -21,14 +19,14 @@ echo "Starting docker service..."
 sudo service docker start
 
 
-#### CERTBOT - LETS ENCRYPT - SSL CERTIFICATES ####
+#### LETS ENCRYPT - SSL CERTIFICATES ####
 echo "Installing letsencrypt..."
-wget https://dl.eff.org/certbot-auto
-chmod a+x certbot-auto
+sudo apt-get install -y letsencrypt 
 echo "letsencrypt installed."
 
+
 echo "Generating certificates..."
-./certbot-auto certonly --webroot -w /home/ubuntu/deploymentscripts/certs -d www.simplysortedsoftware.com -d www.nodemusic.net -d nodemusic.net
+letsencrypt certonly --webroot -w /home/ubuntu/deploymentscripts/certs -d www.simplysortedsoftware.com -d www.nodemusic.net
 echo "Certificates generated."
 
 
@@ -36,11 +34,11 @@ echo "Setting up cron job to renew certificates..."
 #write out current crontab
 crontab -l > mycron
 #echo new cron into cron file
-echo "27 * * * * /home/ubuntu/deploymentscripts/certbot-auto renew" >> mycron
+echo "23  5 * * * letsencrypt renew" >> mycron
 #install new cron file
 crontab mycron
 rm mycron
-echo "Set up cron job to run at 27 minutes past every hour."
+echo "Set up cron job to run at 5:23 every day."
 
 
 #### NGINX PROXY ####
