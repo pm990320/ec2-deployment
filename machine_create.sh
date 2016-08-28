@@ -26,7 +26,7 @@ echo "letsencrypt installed."
 
 
 echo "Generating certificates..."
-letsencrypt certonly --webroot -w /home/ubuntu/deploymentscripts/certs -d www.simplysortedsoftware.com -d www.nodemusic.net
+sudo letsencrypt certonly --webroot -w /home/ubuntu/deploymentscripts/certs -d www.simplysortedsoftware.com -d www.nodemusic.net
 echo "Certificates generated."
 
 
@@ -34,7 +34,7 @@ echo "Setting up cron job to renew certificates..."
 #write out current crontab
 crontab -l > mycron
 #echo new cron into cron file
-echo "23  5 * * * letsencrypt renew" >> mycron
+echo "23  5 * * * sudo letsencrypt renew" >> mycron
 #install new cron file
 crontab mycron
 rm mycron
